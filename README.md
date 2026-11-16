@@ -1,20 +1,19 @@
-RC-Filter-Verifier-
-
 A Python-based automated verification framework designed to evaluate analog circuit designs against theoretical specifications without manual oscilloscope or waveform inspection. Developed as part of an independent engineering portfolio for hardware/software test automation roles.
-🚀 Overview
 
-In automated engineering evaluation workflows (such as AI-assisted circuit synthesis or automated grading pipelines), generated netlists must be programmatically verified against strict electrical performance criteria.
+## 🚀 Overview
+In automated engineering evaluation workflows (such as AI-assisted circuit synthesis or automated grading pipelines), generated netlists must be programmatically verified against strict electrical performance criteria. 
 
 This tool:
+1. Executes batch-mode **SPICE simulations** (`ngspice`) on target netlists.
+2. Parses AC frequency response data via **NumPy**.
+3. Computes exact -3 dB cutoff frequencies using linear interpolation.
+4. Validates pass/fail compliance against defined engineering tolerances.
+5. Generates comparative **Bode diagrams** via **Matplotlib** and outputs structured JSON verification reports.
 
-    Executes batch-mode SPICE simulations (ngspice) on target netlists.
-    Parses AC frequency response data via NumPy.
-    Computes exact -3 dB cutoff frequencies using linear interpolation.
-    Validates pass/fail compliance against defined engineering tolerances.
-    Generates comparative Bode diagrams via Matplotlib and outputs structured JSON verification reports.
+---
 
-📂 Project Structure
-
+## 📂 Project Structure
+```text
 rc_filter_verifier/
 │
 ├── verify_filter.py         # Main test runner, parser, and verification engine
@@ -23,7 +22,6 @@ rc_filter_verifier/
 ├── rc_open_circuit.cir      # Edge-case test: Broken topology / floating node
 ├── bode_verification_plot.png # Generated frequency response visualization
 └── requirements.txt         # Python dependencies
-
 📊 Test Cases & Automated RubricTest CaseNetlist FileDescriptionExpected Result1. Reference Designrc_valid.cir$R = 1\text{k}\Omega$, $C = 159.15\text{nF}$PASS (fc = 1000 Hz $\pm$ 2%)2. Faulty Componentrc_faulty_cap.cir$C = 1.59\mu\text{F}$ (Incorrect value)FAIL (Out of tolerance deviation)3. Broken Topologyrc_open_circuit.cirFloating output node (No RC attenuation)FAIL (-3 dB threshold unreachable)🛠️ Installation & ExecutionPrerequisitesLinux (Pop!_OS / Ubuntu)ngspice simulator installed on host systemPython 3.8+Setup & RunBash# 1. Clone repository and navigate to folder
 cd rc_filter_verifier
 
@@ -36,6 +34,7 @@ pip install numpy scipy matplotlib
 
 # 4. Run automated test suite
 python verify_filter.py
+
 📄 Sample JSON OutputJSON[
     {
         "test_case": "Valid Reference Design",
@@ -56,10 +55,11 @@ python verify_filter.py
         "error_reason": "Cutoff frequency deviation (90.01%) exceeds 2.0% tolerance."
     }
 ]
+
 EOF
 ---
 
-
+requirements.txt`
 
 ```bash
 cat << 'EOF' > requirements.txt
