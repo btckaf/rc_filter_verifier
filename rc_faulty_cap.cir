@@ -1,0 +1,11 @@
+* Case 2: Faulty Capacitor Value (1.59uF -> fc ~ 100 Hz)
+Vin in 0 AC 1.0
+R1 in out 1k
+C1 out 0 1.59u
+.ac dec 100 10 100k
+.control
+run
+wrdata out_faulty.txt vm(out)
+quit
+.endc
+.end

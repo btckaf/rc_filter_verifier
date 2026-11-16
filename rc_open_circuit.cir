@@ -1,0 +1,11 @@
+* Case 3: Broken Topology (Floating Output / No Cutoff)
+Vin in 0 AC 1.0
+R1 in out 1k
+R2 out 0 10Meg
+.ac dec 100 10 100k
+.control
+run
+wrdata out_open.txt vm(out)
+quit
+.endc
+.end
